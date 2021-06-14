@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+
+<style>
+
+body{
+  background-image: url(https://sun9-24.userapi.com/impg/-gL3MBpU8VW4TefmwcOy_lR-lxlmbJpclnB3SA/TjOCw9emXL8.jpg?size=1920x1080&quality=96&sign=19b37b731fc053f4aea8fd120a99913e&type=album);
+  background-repeat: no-repeat;
+  
+}
+
+strong{
+  color:darkred;
+  font-size: 15px;
+  font-family: Arial;  
+}
+</style>>
+
+{% if user.is_authenticated %}
+{% block content %}
+<strong>Добро пожаловать в ✵ТЮРЯГА-КЛИКЕР✵</strong> <a href="/logout">Выйти из аккаунта</a>
+<p id = "moneyCounter">Денег на руках</p>
+
+<img width="150" height="50" src="https://sun9-62.userapi.com/impg/eNotdkWmraHo-U4n4DDZgqKaF1w2Pld2WOfA-w/tZEmp28XHd4.jpg?size=150x50&quality=96&sign=327588424d31ef9750443e5323d11a21&type=album" input type='button' value='поднять валюту' onClick="farmMoney()">
+
+<img width="150" height="50" src="https://sun9-13.userapi.com/impg/QF7q54nXIdYOTcO0WiSlkskiUcshWc5nkGi9Rg/9ziinRQ0FQ0.jpg?size=150x50&quality=96&sign=c93c89c2d5b55f44078144a264959881&type=album" input type='button' value='Чифирнуть' onClick="upgradeMoney()">
+
+<img width="150" height="50" src="https://sun9-3.userapi.com/impg/3MzmlOBVVs72Q-sknYkLGa7lCfbLrmUKrAZtkg/x3b8DqumBPI.jpg?size=150x50&quality=96&sign=ddc20b3dab5f45ed7786e5122fcee1d9&type=album" input class="upgrade" type="button" value='Покурить кэмл' onClick="buycigarettesPrice()">
+
+<img width="150" height="50" src="https://sun9-38.userapi.com/impg/KW0k3cO-6WuKxHyfUKiMf2wHxtGdwdRPFxIJ8w/1-bcoDIuNP0.jpg?size=150x50&quality=96&sign=bd04f104d4a66f9e9169e87e638ccf06&type=album" input class="upgrade" type="button" value='Выучить тюремный анекдот' onClick="buyanecdote()">
+
+
+<p id='teaPriceText'></p>
+<p id='cigarettesPriceAmount'></p>
+<p id='anecdoteAmount'></p>
+<p id='anecdotePrice'></p>
+<p id='cigarettesAmount'></p>
+
+<p id='moneyPerClickAmount'>Валюты за клац: 1</p>
+<p id='moneyPerSecondAmount'>Сигарет в кармане: 0</p>
+
+<script type="text/javascript">
+  var money = 0;
+  var moneyPerClick = 1;
+  var moneyPerSecond = 0;
+  var teaPrice = 50;
+  var cigarettesPrice = 150;
+  var anecdotePrice = 450;
+  var anecdotAmount = 0;
+
+
+  function upgradeMoney() {
+
+    if (money >= teaPrice)
+    {
+    moneyPerClick +=1;
+    money -= teaPrice;
+    teaPrice = Math.round(teaPrice *1.1);
+        document.getElementById('moneyCounter').innerHTML = "Денег на руках: " + Math.round(money); 
+        document.getElementById('teaPriceText').innerHTML = "цена чая: " + teaPrice; 
+        document.getElementById('moneyPerClickAmount').innerHTML = "Валюты за клац: " + moneyPerClick;
+    }
+    else alert ('Не хватает деняг, браток!')
+  }
+
+ function farmMoney() {
+    money += moneyPerClick;
+    document.getElementById('moneyCounter').innerHTML = "Денег на руках: " + Math.round(money);
+  }
+
+  function buycigarettesPrice()
+  {
+    if (money >=cigarettesPrice)
+    {
+      money -= cigarettesPrice;
+      moneyPerSecond +=1;
+      document.getElementById('moneyCounter').innerHTML = "Денег на руках: " + Math.round(money);
+      document.getElementById('cigarettesPriceAmount').innerHTML = "Цена за сиги: " + cigarettesPrice;
+      document.getElementById('moneyPerSecondAmount').innerHTML = "Сигарет в кармане: " + moneyPerSecond;
+    }
+  else alert ('Не хватает деняг, браток!')
+}
+
+setInterval(function() {
+money += moneyPerSecond;
+document.getElementById('moneyCounter').innerHTML = "Денег на руках: " + Math.round(money); 
+},1000)
+
+function buyanecdote() {
+  if (money >= anecdotePrice)
+  {
+    anecdotAmount +=1
+    money -= anecdotePrice;
+    moneyPerClick +=10;
+    anecdotePrice = Math.round(anecdotePrice *1.2)
+        document.getElementById('moneyCounter').innerHTML = "Денег на руках:  " + Math.round(money); 
+        document.getElementById('anecdoteAmount').innerHTML = "Выучено анекдотов:  " + anecdotAmount;
+        document.getElementById('moneyPerClickAmount').innerHTML = "Валюты за клац: " + moneyPerClick;
+        document.getElementById('anecdotePrice').innerHTML = 'Рассказать анекдот за: ' + anecdotePrice;
+  }
+  else alert ('Не хватает деняг, браток!')
+}
+
+
+
+</script>
+{% endblock %}
+{% else %}
+<p>Для доступа к кликеру нужно <a href="/login">Авторизоваться</a></p>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1>✵ТЮРЯГА-КЛИКЕР✵</h1>
+{% if user.is_authenticated %}
+<p>Добро пожаловать, теперь вы можете <a href="/clicker">поиграть в кликер</a>.</p>
+{% else %}
+<p>Для доступа к <a href="/clicker">кликеру</a> нужно <a href="/login">зарегистрироваться</a>.</p>
+{% endif %}
+{% endblock %}

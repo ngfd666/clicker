@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1> Логин </h1>
+
+<form method="POST" class = "form-group">
+	{% csrf_token %}
+	{{form|crispy}}
+	<p><a href="/register"> Зарегистрировать аккаунт</a></p>
+	<button type="submit" class = "btn btn-success">Логин</button>
+
+</form>
+
+{% endblock %}
